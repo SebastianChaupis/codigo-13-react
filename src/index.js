@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import AppInicial from './App';
 import reportWebVitals from './reportWebVitals';
+
+import PrimerComponente from './App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppInicial />
+    <PrimerComponente />
   </React.StrictMode>,
   document.getElementById('root')
 );
