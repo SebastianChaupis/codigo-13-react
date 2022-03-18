@@ -16,6 +16,27 @@ form{
 .title{
   color:orange;
 }
-h4{
-  color: purple;
+h5{
+  text-transform: uppercase;
+  margin-bottom: 0;
+}
+
+.card-pokemon{
+  max-width: 300px;
+  min-height: 400px;
+  max-height: 400px;
+}
+
+.img-pokemon{
+  max-height: 250px;
+  min-height: 250px;
+  object-fit: contain !important;
+  margin-top: 15px;
+}
+.name-pokemon{
+  text-align: center;
+  text-transform: uppercase;
+}
+.center{
+  text-align: center;
 }

@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { Container, Card, CardContent, CardMedia, Grid } from "@mui/material";
-
 import { getDataFromPokemon } from "../../service";
+
+
+import PokemonDetail from "../../components/PokemonDetail";
 //vamos a ejecutar la funcion que se encargara de traer los pokemones
 
 const Home = () => {
@@ -15,7 +17,7 @@ const Home = () => {
         const listPokemones = await getDataFromPokemon();
         //ahora como ya recuperamos la lista de los pokemones hay que usar la funcion
         // setPokemon para poder guardar la lista de pokemones
-        console.log("listPokemones.results", listPokemones.results);
+        //console.log("listPokemones.results", listPokemones.results);
         setPokemon(listPokemones.results);
     };
     //En React existe una funcion llamada useEffect la cual se ejecuta cada vez que se carga la pagina, vamos 
@@ -36,10 +38,12 @@ const Home = () => {
                 {pokemones.length > 0 &&
                     pokemones.map((pokemon, index) => (
                         <Grid item md={4}>
-                            <Card sx={{width:300, height: 500 }}>
-                                <CardMedia component="img" image={`${imgUrl}${index + 1}.svg`} />
-                                <CardContent>
-                                    <h3>{pokemon.name}</h3>
+                            <Card className="card-pokemon">
+                                <CardMedia className="img-pokemon" component="img" image={`${imgUrl}${index + 1}.svg`} />
+                                <CardContent className="center">
+                                    <h3 className="name-pokemon">{pokemon.name}</h3>
+                                    {/*vamos a pasarle el nombre como atributo*/}
+                                    <PokemonDetail nombre={pokemon.name} url={pokemon.url}/>
                                 </CardContent>
                             </Card>
                         </Grid>
