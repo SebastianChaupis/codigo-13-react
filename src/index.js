@@ -7,11 +7,13 @@ import reportWebVitals from './reportWebVitals';
 //import PrimerComponente from './App';
 
 //Por default el archivo que se importa es index asi que no hace falta llamarlo
-import Home from "./pages/Home"
+//import Home from "./pages/Home";
+import App from "./App";
+
 ReactDOM.render(
   <React.StrictMode>
     {/*<PrimerComponente />*/}
-    <Home/>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
