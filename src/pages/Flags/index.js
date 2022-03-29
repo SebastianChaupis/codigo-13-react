@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { CardContent, Card, CardMedia, Container, Grid, TextField, MenuItem, FormControl, InputLabel, Select, CircularProgress } from "@mui/material";
+import { CardContent, Card, CardMedia, Button, Container, Grid, TextField, MenuItem, FormControl, InputLabel, Select, CircularProgress } from "@mui/material";
 import { getDataFromPokemon } from "../../service";
+import { Link } from "react-router-dom";
 
 const Flags = () => {
     const [countries, setCountries] = useState([]);
@@ -24,14 +25,14 @@ const Flags = () => {
         setCountries(response);
     };
 
-    const handleSearchCountry = async(e)=>{
-        const countryName= e.target.value;
-        if(countryName.length==0){
+    const handleSearchCountry = async (e) => {
+        const countryName = e.target.value;
+        if (countryName.length == 0) {
             fetchCountries();
         }
-        if(countryName.length>3){
-            const filterCountries = countries.filter((country)=> country.name.official.toUpperCase().includes(countryName.toUpperCase()));
-        setCountries(filterCountries);
+        if (countryName.length > 3) {
+            const filterCountries = countries.filter((country) => country.name.official.toUpperCase().includes(countryName.toUpperCase()));
+            setCountries(filterCountries);
         }
     }
 
@@ -42,7 +43,7 @@ const Flags = () => {
         <Container>
             <Grid container spacing={3} mt={5}>
                 <Grid item md={6}>
-                    <TextField label="Search for a country..." fullWidth onChange={handleSearchCountry}/>
+                    <TextField label="Search for a country..." fullWidth onChange={handleSearchCountry} />
                 </Grid>
                 <Grid item md={6}>
                     <FormControl fullWidth>
@@ -60,27 +61,31 @@ const Flags = () => {
                 {
                     countries.length > 0 ? (
                         countries.map(country => (
-                        <Grid item md={3} xs={12}>
-                            <Card>
-                                <CardMedia
-                                    component="img"
-                                    height={200}
-                                    image={country.flags.svg}
-                                />
-                                <CardContent>
-                                    <h4>{country.name.official}</h4>
-                                    <p>Population:{country.population}</p>
-                                    <p>Region:{country.region}</p>
-                                    <p>Capital{country.capital}:</p>
-                                </CardContent>
-                            </Card>
-                        </Grid>
-                    )) 
-                    ):(
+                            <Grid item md={3} xs={12}>
+                                <Card>
+                                    <Link to={`/flags/detail/${country.name.common}`}>
+                                        <Button>
+                                            <CardMedia
+                                                component="img"
+                                                height={200}
+                                                image={country.flags.svg}
+                                            />
+                                        </Button>
+                                    </Link>
+                                    <CardContent>
+                                        <h4>{country.name.official}</h4>
+                                        <p>Population:{country.population}</p>
+                                        <p>Region:{country.region}</p>
+                                        <p>Capital{country.capital}:</p>
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        ))
+                    ) : (
                         <div className="center loading">
-                            <CircularProgress/> 
+                            <CircularProgress />
                             <h4>Cargando</h4>
-                        
+
                         </div>
                     )}
             </Grid>

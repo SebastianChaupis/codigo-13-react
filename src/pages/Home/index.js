@@ -51,11 +51,7 @@ const Home = () => {
                 }
 
             </Grid>
-            ) : (
-            <h1>No hay datos</h1>
-            )
-
-
+            );
         </Container>
     );
 };

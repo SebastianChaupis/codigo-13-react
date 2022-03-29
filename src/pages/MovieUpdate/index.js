@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Grid, TextField, Button } from "@mui/material";
-import { getMovieDetail} from "../../service/movies";
+import { getMovieDetail, updateMovie} from "../../service/movies";
 
 const MovieUpdate = () => {
 
@@ -37,6 +37,13 @@ const MovieUpdate = () => {
             wallpaper: response.wallpaper,
         });
     };
+
+    const fetchUpdateMovie = async ()=>{
+        await updateMovie(id,values);
+
+        window.location.href="/youtube/admin";
+    }
+
     useEffect(()=>{
         fetchDetailMovie();
     },[]);
@@ -58,8 +65,8 @@ const MovieUpdate = () => {
             <Grid item md={6}>
                 <TextField label="Link de la portada" value={values.wallpaper} name="wallpaper" fullWidth onChange={handleChangeInput} />
             </Grid>
-            <Grid item md={6}>
-                <Button variant="contained" color="success" fullWidth>Crear</Button>
+            <Grid item md={12}>
+                <Button variant="contained" onClick={fetchUpdateMovie} color="success" fullWidth>Actualizar</Button>
             </Grid>
         </Grid>
     );

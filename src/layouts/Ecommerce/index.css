@@ -1,0 +1,30 @@
+.nav-ecommerce {
+  background-color: #fafafa;
+  overflow: hidden;
+}
+
+.ul-ecommerce {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.li-basket a {
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+}
+.ul-categorias {
+  display: flex;
+  justify-content: space-around;
+  color: black;
+}
+.ul-categorias > li a {
+  color: #1f2937;
+  font-size: 13px;
+  font-weight: 600;
+}
+.fresh {
+  background-color: #eb5757;
+  color: #fff;
+  padding: 3px;
+}

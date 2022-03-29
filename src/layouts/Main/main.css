@@ -1,0 +1,24 @@
+.navegar{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    box-shadow: -10px 27px 50px -38px rgba(0, 0, 0, 0.75);
+    margin-bottom: 60px;
+    border-bottom: 1px solid rgb(201, 190, 190);
+    ;
+}
+.ul-nav{
+    display: flex;
+}
+.li-nav{
+    margin-left: 155px;
+}
+.li-nav a {
+    color: #000;
+    font-size: 20px;
+    margin: 10px;
+}
+a:hover{
+    color: rgb(255, 166, 23);
+}
+
