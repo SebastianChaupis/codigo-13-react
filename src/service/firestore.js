@@ -1,4 +1,7 @@
-import { initializeApp } from "firebase";
+import { async } from "@firebase/util";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyB33q2SiEkDvc0gmLxdH8QAX_WjeN4ccZM",
@@ -10,4 +13,16 @@ const firebaseConfig = {
   measurementId: "G-1JQ15QLJ6J",
 };
 const app = initializeApp(firebaseConfig);
-export default app;
+//Iniciar firestore
+//database : base de datos
+const db= getFirestore(app);
+//Peticion para poder traer los productos 
+export const getProductClothes = async ()=>{
+  //paso 1: Traer la coleccion de datos
+  const collectionClothe= collection(db, "product_clothes");
+  //paso 2: Traer los documentos 
+  const documentClothes = await getDocs(collectionClothe);
+  //paso 3: Crear un arreglo que guarde los documentos
+  const clothes = documentClothes.docs.map((doc)=>doc.data());
+  return clothes;
+};
