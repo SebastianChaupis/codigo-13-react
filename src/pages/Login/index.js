@@ -1,56 +1,61 @@
-import { Button,Grid,Card,TextField, CardContent } from "@mui/material";
+import { Button, Grid, Card, TextField, CardContent } from "@mui/material";
 import { useContext, useState } from "react";
 import bgLogin from "../../assets/bg-login.png";
 import { UserContext } from "../../Context/UserContext";
 import swal from "sweetalert";
-const Login = ()=>{
 
-    const {user, storeUser } = useContext(UserContext);
+//si tenemos dos funciones con el mismo nombre podemos usar un alias en el import
+import { storeUser as storeUserFirebase, loginUser } from "../../service/firestore";
+import { async } from "@firebase/util";
+
+const Login = () => {
+
+    const { storeUser } = useContext(UserContext);
 
     const [userData, setUserData] = useState({
-        email:"",
-        password:"",
+        email: "",
+        password: "",
     });
-    
-    const handleChangeInput =(e)=>{
-        const {name,value} = e.target;
+
+    const handleChangeInput = (e) => {
+        const { name, value } = e.target;
         setUserData({
             ...userData,
-            [name]:value,
+            [name]: value,
         });
     };
-    const handleClickLogin =()=>{
-        if(userData.email=="pepe@gmail.com" && userData.password=="123456"){
-            const user={
-                nombre:"Pepe",
-                apellido:"Zapata",
-                edad:21,
-                trabajo:"Software Developer",
-                cel:"924808209",
-            }
-            storeUser(userData);
-            window.location.href="/youtube/admin";
-        }else{
-            swal({
-                icon:"error",
-                title:"Error",
-                text:"Email or Password incorrect",
-            })
-        }
+    const handleClickLogin =async () => {
+        //Primero hacemos hacer el login usuario
+        const{email,password} = userData;
+        let response = await loginUser(email,password);
         
-    }
+        if(!response.ok){
+           response = await storeUserFirebase(email,password);
 
-    return(
-        <Grid container 
-        spacing={3}
-         alignItems="center" 
-         justifyContent="space-around"
-         sx={{height:'100vh', backgroundColor:"#FAD57F"}}>
+            if(!response.ok){
+                swal({
+                    title:"Error",
+                    text:response.data,
+                    icon:"Error",
+                });
+                return;
+            }
+        };
+        storeUser(response.data.user)
+        window.location.href="/youtube/admin";
+    };
+
+    return (
+        <Grid container
+            spacing={3}
+            alignItems="center"
+            justifyContent="space-around"
+            sx={{ height: '100vh', backgroundColor: "#FAD57F" }}>
             <Grid item md={6}>
-                <img src={bgLogin} width={800} alt=""/>
+                <img src={bgLogin} width={800} alt="" />
             </Grid>
             <Grid item md={6}>
-                <Card sx={{width:500, marginLeft:'130px', marginTop:'50px'}}>
+                <Card sx={{ width: 500, marginLeft: '130px', marginTop: '50px' }}>
                     <CardContent>
                         <h5>Welcome</h5>
                         <h3>Tecsup-Codigo</h3>
@@ -63,7 +68,7 @@ const Login = ()=>{
                                 <TextField type="password" label="Password" name="password" onChange={handleChangeInput} fullWidth></TextField>
                             </Grid>
                             <Grid item md={12}>
-                                <Button sx={{backgroundColor:"#000"}} variant="contained" onClick={handleClickLogin} fullWidth>Iniciar Sesion</Button>
+                                <Button sx={{ backgroundColor: "#000" }} variant="contained" onClick={handleClickLogin} fullWidth>Iniciar Sesion</Button>
                             </Grid>
                         </Grid>
                     </CardContent>

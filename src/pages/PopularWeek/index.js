@@ -3,20 +3,35 @@ import { Container, Grid, Button } from "@mui/material";
 import "./index.css";
 import { getProductClothes } from "../../service/firestore";
 import { UserContext } from "../../Context/UserContext";
+import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 
 const PopularWeek = () => {
 
-    const {storeBasket} = useContext(UserContext);
+    const { basket, storeBasket,deleteElementFromBasket } = useContext(UserContext);
 
 
     const [clothes, setClothes] = useState([]);
-    const fetchClothes = async()=>{
-        const data= await getProductClothes();
+    const fetchClothes = async () => {
+        const data = await getProductClothes();
         setClothes(data)
     }
-    useEffect(()=>{
+    //Creamos un componente que reciba el ds producto y verifique si este existe en basket
+    const ButtonForProduct = ({clothe}) => {
+        const findProduct = basket.find((bas) => bas.id == clothe.id);
+        return (
+            <>
+                {findProduct ? (
+                    <Button onClick={()=>deleteElementFromBasket(clothe.id)}><DeleteForeverRoundedIcon color="error"></DeleteForeverRoundedIcon></Button>
+                ) : (
+                    <Button className="button-basket" onClick={() => storeBasket(clothe)}>+ Add to Basket</Button>
+                )}
+            </>
+        )
+    }
+
+    useEffect(() => {
         fetchClothes();
-    },[]);
+    }, []);
     return (
         <Container maxWidth="xl">
             <Grid container spacing={3} mt={5}>
@@ -33,7 +48,7 @@ const PopularWeek = () => {
                                     {clothe.price_sale}
                                 </span>
                                 <span className="price-tacched">$ {clothe.price}</span>
-                                <Button className="button-basket" onClick={()=>storeBasket(clothe)}>+ Add to Basket</Button>
+                                <ButtonForProduct clothe={clothe}/>
                             </p>
                         </div>
                     </Grid>

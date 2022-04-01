@@ -21,6 +21,11 @@ import Private from "../layouts/Private";
  */
 import Ecommerce from "../layouts/Ecommerce";
 import PopularWeek from "../pages/PopularWeek";
+import BasketView from "../pages/BasketView";
+
+import CreateProduct from "../pages/CreateProduct";
+import Profile from "../pages/Profile";
+
 const Router = () => {
   //Como esto es un componente tenemos que usar return para poder crear las rutas
   return (
@@ -36,11 +41,14 @@ const Router = () => {
         </Route>
         <Route element={<Ecommerce/>}>
           <Route path="/ecommerce" element={<PopularWeek/>}/>
+          <Route path="/ecommerce/basket" element={<BasketView/>}/>
         </Route>
         {/**Route del admin PRIVADAS */}
         <Route element={<Private />}>
           <Route path="/youtube/admin" element={<YoutubeAdministrador />} />
           <Route path="/youtube/admin/editar/:id" element={<MovieUpdate />} />
+          <Route path="/ecommerce/create" element={<CreateProduct/>}/>
+          <Route path="/profile" element={<Profile/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
