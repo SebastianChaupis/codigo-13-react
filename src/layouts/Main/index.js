@@ -1,4 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
+import { Button } from "@mui/material";
 import "./main.css"
 const Main = () => {
     return (
@@ -6,6 +7,9 @@ const Main = () => {
             <nav className="navegar">
                 <div>
                     <img src="" alt="" />
+                    <Button>
+                        <Link to="/signup">SignUp</Link>
+                    </Button>
                 </div>
                 <div>
                     <ul className="ul-nav">

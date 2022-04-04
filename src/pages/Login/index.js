@@ -6,7 +6,6 @@ import swal from "sweetalert";
 
 //si tenemos dos funciones con el mismo nombre podemos usar un alias en el import
 import { storeUser as storeUserFirebase, loginUser } from "../../service/firestore";
-import { async } from "@firebase/util";
 
 const Login = () => {
 
